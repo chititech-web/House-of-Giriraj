@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Giriraj Jewellery — Consolidated Style System */
 /* Merged from theme.css + inline styles, cleaned and organized */
 

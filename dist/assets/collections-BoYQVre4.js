@@ -1,0 +1,1 @@
+import"./modulepreload-polyfill-B5Qt9EMX.js";/* empty css              */import{p as o,b as t,g as r}from"./data-BNrvCabx.js";window.products=o;window.getProductsByCategory=t;window.getAllCategories=r;
