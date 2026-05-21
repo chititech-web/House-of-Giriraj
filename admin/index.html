@@ -5,189 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>House of Giriraj — Content Manager</title>
   <link rel="icon" type="image/svg+xml" href="/images/House_of_Giriraj.svg" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --bg: #0c0a09;
-      --bg-surface: #1c1917;
-      --bg-card: #292524;
-      --primary: #d4a84b;
-      --primary-hover: #e0b85c;
-      --text: #f5f5f4;
-      --text-muted: #a8a29e;
-      --border: #44403c;
-      --font-serif: "Noto Serif", serif;
-      --font-sans: "Manrope", sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: var(--font-sans);
-      background: var(--bg);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ── Login page ── */
-    .nc-githubAuthenticationPage,
-    [class*="AuthenticationPage"],
-    [class*="login"] {
-      background: var(--bg) !important;
-    }
-
-    .nc-githubAuthenticationPage button,
-    [class*="AuthenticationPage"] button,
-    [class*="loginButton"] {
-      background: var(--primary) !important;
-      color: #0c0a09 !important;
-      font-family: var(--font-sans) !important;
-      font-weight: 600 !important;
-      border-radius: 0 !important;
-      border: none !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.15em !important;
-      font-size: 0.75rem !important;
-      padding: 0.875rem 2rem !important;
-      transition: all 0.3s ease !important;
-    }
-
-    .nc-githubAuthenticationPage button:hover,
-    [class*="AuthenticationPage"] button:hover {
-      background: var(--primary-hover) !important;
-      transform: translateY(-1px) !important;
-    }
-
-    /* ── App shell ── */
-    [class*="appBar"],
-    [class*="AppHeader"] {
-      background: var(--bg-surface) !important;
-      border-bottom: 1px solid var(--border) !important;
-      color: var(--text) !important;
-    }
-
-    [class*="sidebar"],
-    [class*="Sidebar"],
-    [class*="sideBar"] {
-      background: var(--bg) !important;
-      border-right: 1px solid var(--border) !important;
-    }
-
-    [class*="sidebar"] a,
-    [class*="Sidebar"] a,
-    [class*="sideBar"] a {
-      font-family: var(--font-sans) !important;
-      letter-spacing: 0.05em !important;
-    }
-
-    [class*="sidebar"] [class*="active"],
-    [class*="Sidebar"] [class*="active"] {
-      border-left: 3px solid var(--primary) !important;
-      background: rgba(212, 168, 75, 0.08) !important;
-    }
-
-    /* ── Content area ── */
-    [class*="mainContent"],
-    [class*="main"] {
-      background: var(--bg) !important;
-    }
-
-    [class*="card"],
-    [class*="entryCard"] {
-      background: var(--bg-card) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 0 !important;
-    }
-
-    [class*="card"]:hover,
-    [class*="entryCard"]:hover {
-      border-color: var(--primary) !important;
-    }
-
-    /* ── Buttons ── */
-    button, [class*="button"] {
-      font-family: var(--font-sans) !important;
-    }
-
-    [class*="primaryButton"],
-    [class*="PublishButton"] {
-      background: var(--primary) !important;
-      color: #0c0a09 !important;
-      border-radius: 0 !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.1em !important;
-      font-size: 0.75rem !important;
-      font-weight: 600 !important;
-    }
-
-    /* ── Editor ── */
-    [class*="editor"],
-    [class*="Editor"] {
-      font-family: var(--font-sans) !important;
-    }
-
-    [class*="editor"] input,
-    [class*="editor"] textarea,
-    [class*="Editor"] input,
-    [class*="Editor"] textarea {
-      font-family: var(--font-sans) !important;
-      background: var(--bg-surface) !important;
-      color: var(--text) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 0 !important;
-      padding: 0.625rem !important;
-    }
-
-    [class*="editor"] input:focus,
-    [class*="editor"] textarea:focus {
-      border-color: var(--primary) !important;
-      outline: none !important;
-      box-shadow: 0 0 0 1px var(--primary) !important;
-    }
-
-    label, [class*="label"] {
-      font-family: var(--font-sans) !important;
-      letter-spacing: 0.08em !important;
-      text-transform: uppercase !important;
-      font-size: 0.65rem !important;
-      color: var(--text-muted) !important;
-    }
-
-    /* ── Dropdowns / selects ── */
-    select, [class*="select"] {
-      background: var(--bg-surface) !important;
-      color: var(--text) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 0 !important;
-    }
-
-    /* ── Media library ── */
-    [class*="mediaLibrary"] {
-      background: var(--bg) !important;
-    }
-
-    [class*="mediaCard"] {
-      background: var(--bg-card) !important;
-      border: 1px solid var(--border) !important;
-    }
-
-    /* ── Scrollbar ── */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--border);
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--text-muted);
-    }
-
-    /* ── Hide "Decap CMS" text ── */
+    /* ── Hide "Decap CMS" header text ── */
     [class*="AppHeader"] [class*="text"],
     [class*="appBar"] [class*="text"] {
       visibility: hidden !important;
@@ -199,10 +18,7 @@
       visibility: visible !important;
       position: absolute !important;
       left: 0 !important;
-      top: 0 !important;
-      font-family: var(--font-serif) !important;
-      font-size: 1rem !important;
-      letter-spacing: 0.1em !important;
+      white-space: nowrap !important;
     }
 
     /* ── Sidebar footer "Decap CMS" ── */
@@ -217,16 +33,9 @@
       visibility: visible !important;
       position: absolute !important;
       left: 0 !important;
-      top: 0 !important;
-      color: var(--text-muted) !important;
       font-size: 0.65rem !important;
       letter-spacing: 0.08em !important;
       text-transform: uppercase !important;
-    }
-
-    /* ── Entry title ── */
-    [class*="entryCard"] [class*="title"] {
-      font-family: var(--font-serif) !important;
     }
   </style>
 </head>
