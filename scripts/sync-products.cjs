@@ -30,38 +30,40 @@ function readAllProducts() {
 
   if (!fs.existsSync(PRODUCTS_DIR)) return products;
 
-  const categories = fs.readdirSync(PRODUCTS_DIR, { withFileTypes: true })
-    .filter(d => d.isDirectory());
+  const files = fs.readdirSync(PRODUCTS_DIR).filter(f => f.endsWith(".md"));
 
-  for (const cat of categories) {
-    const catPath = path.join(PRODUCTS_DIR, cat.name);
-    const files = fs.readdirSync(catPath).filter(f => f.endsWith(".md"));
-
-    for (const file of files) {
-      const content = fs.readFileSync(path.join(catPath, file), "utf-8");
-      const data = parseFrontmatter(content);
-      if (!data) {
-        console.warn(`  ⚠ Skipping ${cat.name}/${file} — invalid frontmatter`);
-        continue;
-      }
-      products.push({
-        id: data.id,
-        name: data.name,
-        category: data.category,
-        subcategory: data.subcategory,
-        priceRange: data.priceRange || "",
-        shortDesc: data.shortDesc || "",
-        description: data.body || data.description || "",
-        image: data.imagePath ? `/assets/images/${data.imagePath}` : "",
-        specs: {
-          stone: data.stone || "",
-          metal: data.metal || "",
-          weight: data.weight || "",
-          cert: data.cert || "",
-        },
-        featured: data.featured === true,
-      });
+  for (const file of files) {
+    const content = fs.readFileSync(path.join(PRODUCTS_DIR, file), "utf-8");
+    const data = parseFrontmatter(content);
+    if (!data) {
+      console.warn(`  ⚠ Skipping ${file} — invalid frontmatter`);
+      continue;
     }
+
+    let imageUrl = "";
+    if (data.image) {
+      imageUrl = `/assets/images/products/${data.image}`;
+    } else if (data.imagePath) {
+      imageUrl = `/assets/images/${data.imagePath}`;
+    }
+
+    products.push({
+      id: data.id,
+      name: data.name,
+      category: data.category,
+      subcategory: data.subcategory,
+      priceRange: data.priceRange || "",
+      shortDesc: data.shortDesc || "",
+      description: data.body || data.description || "",
+      image: imageUrl,
+      specs: {
+        stone: data.stone || "",
+        metal: data.metal || "",
+        weight: data.weight || "",
+        cert: data.cert || "",
+      },
+      featured: data.featured === true,
+    });
   }
 
   // Sort by category order then by id

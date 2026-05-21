@@ -41,6 +41,7 @@ function toYamlFrontmatter(row) {
     featured: row.featured === "TRUE",
     imagePath: row.imagePath || "",
     videoPath: row.videoPath || "",
+    image: row.image || "",
   };
 
   let yaml = "---\n";

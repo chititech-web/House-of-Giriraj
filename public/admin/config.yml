@@ -33,3 +33,4 @@ collections:
       - { label: "Certification", name: "cert", widget: "string" }
       - { label: "Featured", name: "featured", widget: "boolean", default: false }
       - { label: "Description", name: "body", widget: "markdown", required: false }
+      - { label: "Image", name: "image", widget: "image", required: false }
