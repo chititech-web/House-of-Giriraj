@@ -1,0 +1,137 @@
+backend:
+  name: github
+  repo: prabhakarmdes12-cmyk/House-of-Giriraj
+  branch: master
+  base_url: https://houseofgiriraj.vercel.app
+  auth_endpoint: api/oauth
+
+publish_mode: editorial_workflow
+media_folder: public/assets/images/products
+public_folder: /assets/images/products
+
+collections:
+  - name: "products"
+    label: "Products"
+    label_singular: "Product"
+    folder: products
+    create: true
+    delete: true
+    identifier_field: id
+    extension: md
+    format: yaml-frontmatter
+    slug: "{{category}}/{{id}}"
+    summary: "{{name}} — {{category}}"
+    sortable_fields: ["category", "name"]
+    view_filters:
+      - label: "Featured"
+        field: featured
+        pattern: true
+      - label: "Chokers"
+        field: category
+        pattern: chokers
+      - label: "Necklaces"
+        field: category
+        pattern: necklaces
+      - label: "Chandeliers"
+        field: category
+        pattern: chandeliers
+      - label: "Bracelets"
+        field: category
+        pattern: bracelets
+      - label: "Bangles"
+        field: category
+        pattern: bangles
+      - label: "Rings"
+        field: category
+        pattern: rings
+      - label: "Studs"
+        field: category
+        pattern: studs
+    fields:
+      - label: "Product ID"
+        name: "id"
+        widget: "string"
+        hint: "URL-safe identifier (e.g. royal-choker)"
+        pattern:
+          - "^[a-z0-9]([a-z0-9-]*[a-z0-9])?$"
+          - "Lowercase letters, numbers, and hyphens only"
+
+      - label: "Product Name"
+        name: "name"
+        widget: "string"
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Chokers", value: "chokers" }
+          - { label: "Necklaces", value: "necklaces" }
+          - { label: "Chandeliers", value: "chandeliers" }
+          - { label: "Bracelets", value: "bracelets" }
+          - { label: "Bangles", value: "bangles" }
+          - { label: "Rings", value: "rings" }
+          - { label: "Studs", value: "studs" }
+
+      - label: "Subcategory"
+        name: "subcategory"
+        widget: "select"
+        options:
+          - { label: "Chokers", value: "chokers" }
+          - { label: "Necklaces", value: "necklaces" }
+          - { label: "Earrings", value: "earrings" }
+          - { label: "Bracelets", value: "bracelets" }
+          - { label: "Bangles", value: "bangles" }
+          - { label: "Rings", value: "rings" }
+
+      - label: "Short Description"
+        name: "shortDesc"
+        widget: "string"
+        hint: "Displayed on collection cards (e.g. Masterpiece • Rubies)"
+
+      - label: "Price Range"
+        name: "priceRange"
+        widget: "string"
+        hint: "e.g. ₹15L - ₹25L"
+
+      - label: "Stone"
+        name: "stone"
+        widget: "string"
+
+      - label: "Metal"
+        name: "metal"
+        widget: "string"
+
+      - label: "Weight"
+        name: "weight"
+        widget: "string"
+
+      - label: "Certification"
+        name: "cert"
+        widget: "select"
+        options:
+          - "GIA Certified"
+          - "BIS Hallmarked"
+          - "IGI Certified"
+
+      - label: "Featured"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        required: false
+
+      - label: "Hero Image"
+        name: "imagePath"
+        widget: "string"
+        required: false
+        hint: "Path relative to /assets/images/ (e.g. products/chokers/royal-choker/hero.jpg)"
+
+      - label: "Product Video"
+        name: "videoPath"
+        widget: "string"
+        required: false
+        hint: "Path relative to /assets/videos/ (e.g. products/necklaces/maharani-viraasat/video.mp4)"
+
+      - label: "Description"
+        name: "body"
+        widget: "markdown"
+        required: false

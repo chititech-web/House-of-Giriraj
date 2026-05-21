@@ -1,4 +1,4 @@
-// Auto-generated from product-inventory.csv — do not edit directly
+// Auto-generated from products/*.md — do not edit directly
 // Run: node scripts/sync-products.cjs
 
 export const products = [

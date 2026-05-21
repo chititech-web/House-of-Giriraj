@@ -4,6 +4,12 @@
   "rewrites": [
     { "source": "/product/:id", "destination": "/product.html?id=:id" }
   ],
+  "functions": {
+    "api/oauth.js": {
+      "memory": 128,
+      "maxDuration": 10
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",

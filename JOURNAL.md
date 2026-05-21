@@ -122,3 +122,27 @@
 - **Workflow:** Edit CSV in Excel → drop real product images into product
   folders → run `node scripts/sync-products.cjs` → `npm run build`.
 - Verified build passes after CSV-to-JS sync.
+
+### Decap CMS — Client Product Management UI
+
+- Installed Decap CMS at `/admin` for client-facing product editing.
+- **`public/admin/index.html`** — CMS entry point (loads decap-cms-app).
+- **`public/admin/config.yml`** — Product model with all fields (id, name, category,
+  subcategory, price, specs, featured, images, description via markdown editor).
+  Includes category filters, editorial workflow, and sort options.
+- **`api/oauth.js`** — Vercel serverless function for GitHub OAuth authentication.
+- Products are now stored as individual markdown files in `products/{category}/{id}.md`
+  with YAML frontmatter. The CMS reads/writes these files directly on GitHub.
+- **`scripts/csv-to-md.cjs`** — One-time migration script (CSV → markdown files).
+- **Updated `scripts/sync-products.cjs`** — Now reads from `products/*.md` files
+  instead of CSV, generates `src/data.js` for the Vite build.
+- CSV is preserved as a human-readable reference / bulk-import format.
+- Updated `vercel.json` with `api/oauth.js` function config.
+
+**Setup required for production (manual, one-time):**
+1. Go to GitHub → Settings → Developer settings → OAuth Apps → New OAuth App
+2. Set Homepage URL to `https://houseofgiriraj.vercel.app`
+3. Set Callback URL to `https://houseofgiriraj.vercel.app/api/oauth?provider=github`
+4. Copy Client ID and generate Client Secret
+5. Add to Vercel env vars: `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET`
+6. Redeploy
