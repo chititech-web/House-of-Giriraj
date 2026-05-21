@@ -199,7 +199,28 @@
 | 2 | `npm run dev` |
 | 3 | `npm run dev:sync` |
 
+### Cleanup: Remove Legacy imagePath/videoPath
+
+- Removed `imagePath` and `videoPath` columns from CSV (all image management is
+  now CMS-based).
+- Removed `imagePath`/`videoPath` from `csv-to-md.cjs` fields.
+- Removed `imagePath` fallback from `sync-products.cjs` (relying only on `image`
+  and gallery fields).
+- **Important caveat:** Running `csv-to-md.cjs` after CMS edits will overwrite
+  CMS-managed data (images, gallery, videos). The CSV is now a seed/reference
+  file only.
+
+### SEO: JSON-LD + Sitemap
+
+- Added `Organization` schema JSON-LD in `<head>` of `product.html`.
+- Added dynamic `Product` schema JSON-LD (name, description, images, category,
+  offers/price) to each product page.
+- Integrated sitemap generation into `sync-products.cjs` — produces
+  `public/sitemap.xml` with 34 URLs (6 static pages, 7 category filters,
+  21 product pages). Auto-updated on every sync.
+
 ### Known Caveats
 
 - `main` variable name conflicted with page-scoped `main` in product.html gallery
   JS — renamed to `galleryMain`.
+- CSV re-import overwrites CMS data — only use `csv-to-md.cjs` for initial bulk import.

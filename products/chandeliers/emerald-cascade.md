@@ -10,7 +10,6 @@ metal: Platinum
 weight: 6ct total
 cert: GIA Certified
 featured: false
-imagePath: products/chandeliers/emerald-cascade/hero.jpg
 ---
 
 Cascading emeralds create a waterfall of green, framed by delicate diamond settings.

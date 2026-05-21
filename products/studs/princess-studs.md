@@ -10,7 +10,6 @@ metal: 18k White Gold
 weight: 1ct pair
 cert: GIA Certified
 featured: false
-imagePath: products/studs/princess-studs/hero.jpg
 ---
 
 Classic princess-cut diamond studs that pair effortlessly with any look.

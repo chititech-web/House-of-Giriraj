@@ -10,7 +10,6 @@ metal: 18k White Gold
 weight: 3ct total
 cert: GIA Certified
 featured: false
-imagePath: products/bracelets/diamond-tennis/hero.jpg
 ---
 
 The timeless tennis bracelet reimagined with 3 carats of perfectly matched diamonds.

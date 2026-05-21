@@ -4,6 +4,8 @@ const yaml = require("js-yaml");
 
 const PRODUCTS_DIR = path.join(__dirname, "..", "products");
 const OUTPUT_PATH = path.join(__dirname, "..", "src", "data.js");
+const SITEMAP_PATH = path.join(__dirname, "..", "public", "sitemap.xml");
+const BASE_URL = "https://houseofgiriraj.vercel.app";
 
 function parseFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
@@ -44,7 +46,7 @@ function readAllProducts() {
         image: resolveImage(g.image),
         caption: g.caption || ""
       })) : [];
-      const imageUrl = data.image ? resolveImage(data.image) : (gallery.length > 0 ? gallery[0].image : (data.imagePath ? `/assets/images/${data.imagePath}` : ""));
+      const imageUrl = data.image ? resolveImage(data.image) : (gallery.length > 0 ? gallery[0].image : "");
       const videos = Array.isArray(data.videos) ? data.videos.map(v => ({
         video: v.video || "",
         poster: v.poster ? resolveImage(v.poster) : ""
@@ -131,3 +133,38 @@ export function getAllCategories() {
 
 fs.writeFileSync(OUTPUT_PATH, code, "utf-8");
 console.log(`✓ Generated ${OUTPUT_PATH} (${products.length} products from ${PRODUCTS_DIR})`);
+
+// Generate sitemap
+const staticPages = [
+  { url: "/", priority: "1.0", changefreq: "weekly" },
+  { url: "/collections.html", priority: "0.9", changefreq: "weekly" },
+  { url: "/bespoke.html", priority: "0.7", changefreq: "monthly" },
+  { url: "/heritage.html", priority: "0.7", changefreq: "monthly" },
+  { url: "/contact.html", priority: "0.6", changefreq: "monthly" },
+  { url: "/admin/index.html", priority: "0.3", changefreq: "monthly" },
+];
+
+const catOrder = ["chokers", "necklaces", "chandeliers", "bracelets", "bangles", "rings", "studs"];
+
+const urls = [...staticPages];
+for (const cat of catOrder) {
+  urls.push({ url: `/collections.html?category=${cat}`, priority: "0.8", changefreq: "weekly" });
+}
+for (const p of products) {
+  urls.push({ url: `/product.html?id=${p.id}`, priority: "0.8", changefreq: "weekly" });
+}
+
+const now = new Date().toISOString();
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(u => `  <url>
+    <loc>${BASE_URL}${u.url}</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`).join("\n")}
+</urlset>
+`;
+
+fs.writeFileSync(SITEMAP_PATH, sitemap, "utf-8");
+console.log(`✓ Generated ${SITEMAP_PATH} (${urls.length} URLs)`);

@@ -39,8 +39,6 @@ function toYamlFrontmatter(row) {
     weight: row.weight,
     cert: row.cert,
     featured: row.featured === "TRUE",
-    imagePath: row.imagePath || "",
-    videoPath: row.videoPath || "",
     image: row.image || "",
   };
 

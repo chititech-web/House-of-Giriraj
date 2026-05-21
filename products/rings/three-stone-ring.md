@@ -10,7 +10,6 @@ metal: Platinum
 weight: 3ct total
 cert: GIA Certified
 featured: false
-imagePath: products/rings/three-stone-ring/hero.jpg
 ---
 
 A powerful three-stone design representing past, present, and future — 3 carats of pure brilliance.

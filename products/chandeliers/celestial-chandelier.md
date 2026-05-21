@@ -10,7 +10,6 @@ metal: Platinum
 weight: 5ct total
 cert: GIA Certified
 featured: false
-imagePath: products/chandeliers/celestial-chandelier/hero.jpg
 ---
 
 Dramatic chandelier earrings that cascade with 5 carats of brilliant diamonds.
