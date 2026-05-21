@@ -214,7 +214,7 @@ export const products = [
     "priceRange": "₹2L - ₹4L",
     "shortDesc": "Bridal • Gold",
     "description": "Traditional bridal chooda bangles reimagined with modern elegance and diamond embellishments.",
-    "image": "/assets/images/products/bangles/bridal-chooda/hero.jpg",
+    "image": "/assets/images/products/product_image-4-.jpeg",
     "specs": {
       "stone": "Diamond + Enamel",
       "metal": "22k Gold",

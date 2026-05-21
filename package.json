@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "dev:sync": "npx nodemon --watch products --ext md --exec \"node scripts/sync-products.cjs\"",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
     "optimize:images": "node scripts/optimize-images.mjs"
