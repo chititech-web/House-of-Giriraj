@@ -34,11 +34,11 @@ function readAllProducts() {
       continue;
     }
 
-    const imageUrl = data.image ? resolveImage(data.image) : (data.imagePath ? `/assets/images/${data.imagePath}` : "");
     const gallery = Array.isArray(data.gallery) ? data.gallery.map(g => ({
       image: resolveImage(g.image),
       caption: g.caption || ""
     })) : [];
+    const imageUrl = data.image ? resolveImage(data.image) : (gallery.length > 0 ? gallery[0].image : (data.imagePath ? `/assets/images/${data.imagePath}` : ""));
     const videos = Array.isArray(data.videos) ? data.videos.map(v => ({
       video: v.video || "",
       poster: v.poster ? resolveImage(v.poster) : ""

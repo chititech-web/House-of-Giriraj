@@ -105,9 +105,19 @@ export const products = [
     "priceRange": "₹8L - ₹15L",
     "shortDesc": "Classic • Diamonds",
     "description": "A stunning strand of solitaire diamonds, each individually set for maximum brilliance.",
-    "image": "/assets/images/products/necklaces/solitaire-strand/hero.jpg",
-    "gallery": [],
-    "videos": [],
+    "image": "/assets/images/products/product_image-1-.jpeg",
+    "gallery": [
+      {
+        "image": "/assets/images/products/product_image-1-.jpeg",
+        "caption": ""
+      }
+    ],
+    "videos": [
+      {
+        "video": "/assets/images/products/product_video-1-.mp4",
+        "poster": ""
+      }
+    ],
     "specs": {
       "stone": "Diamond",
       "metal": "18k White Gold",
