@@ -109,7 +109,11 @@ const houseCollection = [
     "category": "High Jewellery · Diamond",
     "description": "An ornate lattice of diamonds inspired by heirloom craftsmanship and ceremonial artistry.",
     "hero": "Highly distinctive silhouette.",
-    "images": [],
+    "images": [
+      "royale-lace-ch-12509(1).png",
+      "royale-lace-ch-12509(2).png",
+      "royale-lace-ch-12509(3).jpg"
+    ],
     "onHomepage": true,
     "row": 3,
     "homepageOrder": 1
@@ -122,7 +126,11 @@ const houseCollection = [
     "category": "High Jewellery · Emerald & Diamond",
     "description": "Cascading emerald clusters suspended through floral diamond arrangements, designed for celebration and grandeur.",
     "hero": "Elegant bridal appeal.",
-    "images": [],
+    "images": [
+      "emerald-reverie-nk-12536(1).png",
+      "emerald-reverie-nk-12536(2).png",
+      "emerald-reverie-nk-12536(3).jpg"
+    ],
     "onHomepage": true,
     "row": 3,
     "homepageOrder": 2
