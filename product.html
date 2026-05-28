@@ -46,9 +46,9 @@
         <img class="h-8 md:h-10 w-auto" src="images/House_of_Giriraj.svg" alt="Giriraj Jewellery" />
       </a>
       <div class="hidden lg:flex gap-8 items-center">
-        <a class="text-[#7b7670] hover:text-[#8d743b] transition-colors duration-400 font-label text-xs uppercase tracking-widest nav-link link-reveal" href="heritage.html" data-i18n="nav_heritage_page">The House</a>
         <a class="text-[#7b7670] hover:text-[#8d743b] transition-colors duration-400 font-label text-xs uppercase tracking-widest nav-link link-reveal" href="collections.html" data-i18n="nav_collections_page">Collections</a>
         <a class="text-[#7b7670] hover:text-[#8d743b] transition-colors duration-400 font-label text-xs uppercase tracking-widest nav-link link-reveal" href="bespoke.html" data-i18n="nav_private_viewing_page">Private Viewing</a>
+        <a class="text-[#7b7670] hover:text-[#8d743b] transition-colors duration-400 font-label text-xs uppercase tracking-widest nav-link link-reveal" href="heritage.html" data-i18n="nav_heritage_page">The House</a>
       </div>
       <div class="flex items-center gap-3 md:gap-4">
         <div class="hidden lg:flex items-center gap-2 border-b border-[#4d463a] pb-1 cursor-pointer" onclick="searchSystem.openSearchModal()">
@@ -84,9 +84,9 @@
       </div>
       <div class="menu-links">
         <a class="menu-link" href="index.html">Home</a>
-        <a class="menu-link" href="heritage.html" data-i18n="nav_heritage_page">The House</a>
         <a class="menu-link" href="collections.html" data-i18n="nav_collections_page">Collections</a>
         <a class="menu-link" href="bespoke.html" data-i18n="nav_private_viewing_page">Private Viewing</a>
+        <a class="menu-link" href="heritage.html" data-i18n="nav_heritage_page">The House</a>
       </div>
       <a href="bespoke.html" class="menu-cta" data-i18n="private_viewing_cta">Private Viewing</a>
       <div class="menu-controls">
@@ -117,9 +117,9 @@
           <img class="h-8 md:h-10 w-auto" src="images/House_of_Giriraj.svg" alt="Giriraj Jewellery" />
         </a>
         <div class="flex flex-wrap justify-center gap-6 md:gap-8">
-          <a class="text-[#7b7670] hover:text-[#8d743b] transition-colors duration-400 font-label text-[10px] uppercase tracking-[0.1em] link-reveal" href="heritage.html" data-i18n="nav_heritage_page">The House</a>
           <a class="text-[#7b7670] hover:text-[#8d743b] transition-colors duration-400 font-label text-[10px] uppercase tracking-[0.1em] link-reveal" href="collections.html" data-i18n="nav_collections_page">Collections</a>
           <a class="text-[#7b7670] hover:text-[#8d743b] transition-colors duration-400 font-label text-[10px] uppercase tracking-[0.1em] link-reveal" href="bespoke.html" data-i18n="nav_private_viewing_page">Private Viewing</a>
+          <a class="text-[#7b7670] hover:text-[#8d743b] transition-colors duration-400 font-label text-[10px] uppercase tracking-[0.1em] link-reveal" href="heritage.html" data-i18n="nav_heritage_page">The House</a>
         </div>
       </div>
       <div class="flex gap-6 md:gap-8 mt-4">
@@ -176,6 +176,11 @@
       // Get related products
       const related = getRelatedProducts(product.id, 4);
 
+      // Prev/next product navigation
+      const productIdx = products.findIndex(p => p.id === product.id);
+      const prevProduct = productIdx > 0 ? products[productIdx - 1] : null;
+      const nextProduct = productIdx < products.length - 1 ? products[productIdx + 1] : null;
+
       // Render page
       main.innerHTML = `
         <!-- Breadcrumb -->
@@ -202,7 +207,7 @@
           image: product.image ? [product.image].concat(product.gallery.map(g => g.image)) : [],
           category: product.category
         }, null, 2)}
-        </script>
+        </scr${''}ipt>
 
         <!-- Product Section -->
         <section class="px-6 md:px-12 py-8 md:py-12 bg-background">
@@ -210,8 +215,14 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
               <!-- Gallery -->
               <div class="space-y-4">
-                <div class="aspect-square bg-surface-container overflow-hidden img-zoom" id="gallery-main">
+                <div class="aspect-square bg-surface-container overflow-hidden img-zoom relative" id="gallery-main">
                   <img src="${esc(product.image)}" alt="${esc(product.name)}" class="w-full h-full object-cover" loading="lazy" />
+                  ${prevProduct ? `<a href="product.html?id=${encodeURIComponent(prevProduct.id)}" class="nav-arrow absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-white/90 hover:bg-white text-stone-800 rounded-full shadow-lg transition-all hover:scale-105 z-10" aria-label="Previous masterpiece">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                  </a>` : ""}
+                  ${nextProduct ? `<a href="product.html?id=${encodeURIComponent(nextProduct.id)}" class="nav-arrow absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-white/90 hover:bg-white text-stone-800 rounded-full shadow-lg transition-all hover:scale-105 z-10" aria-label="Next masterpiece">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                  </a>` : ""}
                 </div>
                 ${(product.gallery && product.gallery.length > 0) || (product.videos && product.videos.length > 0) ? `
                 <div class="flex gap-2 overflow-x-auto pb-2" id="gallery-thumbs">
@@ -345,6 +356,32 @@
             galleryMain.innerHTML = `<video controls autoplay class="w-full h-full object-cover" poster="${poster}"><source src="${src}" type="video/mp4"></video>`;
           }
         });
+      }
+
+      // Touch swipe product navigation
+      const galleryMain = document.getElementById("gallery-main");
+      if (galleryMain && (prevProduct || nextProduct)) {
+        let swipeStartX = 0, swipeStartY = 0, swiped = false;
+        galleryMain.addEventListener("touchstart", function (e) {
+          if (e.target.closest(".nav-arrow")) return;
+          swipeStartX = e.changedTouches[0].screenX;
+          swipeStartY = e.changedTouches[0].screenY;
+          swiped = false;
+        }, { passive: true });
+        galleryMain.addEventListener("touchmove", function (e) {
+          const dx = e.changedTouches[0].screenX - swipeStartX;
+          const dy = e.changedTouches[0].screenY - swipeStartY;
+          if (Math.abs(dx) > 20 && Math.abs(dx) > Math.abs(dy)) swiped = true;
+        }, { passive: true });
+        galleryMain.addEventListener("touchend", function (e) {
+          if (!swiped) return;
+          const dx = e.changedTouches[0].screenX - swipeStartX;
+          const dy = e.changedTouches[0].screenY - swipeStartY;
+          if (Math.abs(dx) >= 50 && Math.abs(dx) > Math.abs(dy)) {
+            const target = dx < 0 ? nextProduct : prevProduct;
+            if (target) window.location.href = `product.html?id=${encodeURIComponent(target.id)}`;
+          }
+        }, { passive: false });
       }
 
       // Re-init WhatsApp funnel after DOM injection

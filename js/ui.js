@@ -197,6 +197,8 @@ function initNavHide() {
   const nav = document.querySelector("nav.fixed");
   if (!nav) return;
 
+  const filterBar = document.getElementById("filter-section");
+
   let lastScroll = 0;
   let ticking = false;
 
@@ -206,10 +208,13 @@ function initNavHide() {
         const currentScroll = window.scrollY;
         if (currentScroll < 80) {
           nav.classList.remove("nav--hidden");
+          if (filterBar) filterBar.style.top = "";
         } else if (currentScroll > lastScroll) {
           nav.classList.add("nav--hidden");
+          if (filterBar) filterBar.style.top = "0px";
         } else {
           nav.classList.remove("nav--hidden");
+          if (filterBar) filterBar.style.top = "";
         }
         lastScroll = currentScroll;
         ticking = false;
