@@ -1,5 +1,22 @@
 const houseCollection = [
   {
+    "id": "celestial-cascade",
+    "slug": "celestial-cascade",
+    "title": "Maharani Cascade Necklace",
+    "category": "High Jewellery · Diamond",
+    "description": "A statement of regal craftsmanship and architectural brilliance, the Maharani Cascade Necklace is designed for moments that demand presence. Handcrafted with layered diamond formations, cascading pear drops, and intricate symmetry, this masterpiece draws inspiration from royal ceremonial jewellery while embracing contemporary luxury.\n\nIts dramatic silhouette frames the neckline with extraordinary brilliance, transforming light into movement and elegance into authority.\n\nCrafted for weddings, couture occasions, and collectors of exceptional jewellery.\n",
+    "hero": "Full-width hero piece on homepage",
+    "images": [
+      "celestial-cascade-1.png",
+      "celestial-cascade-2.png",
+      "celestial-cascade-3.png"
+    ],
+    "onHomepage": true,
+    "row": 0,
+    "homepageOrder": 0,
+    "isHero": true
+  },
+  {
     "id": "emerald-canopy",
     "slug": "emerald-canopy",
     "title": "Emerald Canopy",
@@ -14,7 +31,8 @@ const houseCollection = [
     ],
     "onHomepage": true,
     "row": 1,
-    "homepageOrder": 1
+    "homepageOrder": 1,
+    "isHero": false
   },
   {
     "id": "maharani-veil",
@@ -31,7 +49,8 @@ const houseCollection = [
     ],
     "onHomepage": true,
     "row": 1,
-    "homepageOrder": 2
+    "homepageOrder": 2,
+    "isHero": false
   },
   {
     "id": "imperial-cascade",
@@ -48,7 +67,8 @@ const houseCollection = [
     ],
     "onHomepage": true,
     "row": 1,
-    "homepageOrder": 3
+    "homepageOrder": 3,
+    "isHero": false
   },
   {
     "id": "dynasty-bloom",
@@ -65,7 +85,8 @@ const houseCollection = [
     ],
     "onHomepage": true,
     "row": 2,
-    "homepageOrder": 1
+    "homepageOrder": 1,
+    "isHero": false
   },
   {
     "id": "ruby-aurora",
@@ -82,7 +103,8 @@ const houseCollection = [
     ],
     "onHomepage": true,
     "row": 2,
-    "homepageOrder": 2
+    "homepageOrder": 2,
+    "isHero": false
   },
   {
     "id": "celestial-rain",
@@ -99,7 +121,8 @@ const houseCollection = [
     ],
     "onHomepage": true,
     "row": 2,
-    "homepageOrder": 3
+    "homepageOrder": 3,
+    "isHero": false
   },
   {
     "id": "royal-lace",
@@ -116,7 +139,8 @@ const houseCollection = [
     ],
     "onHomepage": true,
     "row": 3,
-    "homepageOrder": 1
+    "homepageOrder": 1,
+    "isHero": false
   },
   {
     "id": "emerald-reverie",
@@ -133,7 +157,8 @@ const houseCollection = [
     ],
     "onHomepage": true,
     "row": 3,
-    "homepageOrder": 2
+    "homepageOrder": 2,
+    "isHero": false
   },
   {
     "id": "emerald-sonata",
@@ -144,7 +169,8 @@ const houseCollection = [
     "description": "Graceful emerald drops framed by intricate diamond detailing, composed for refined evening elegance.",
     "hero": "Strong emotional luxury appeal.",
     "images": [],
-    "onHomepage": false
+    "onHomepage": false,
+    "isHero": false
   },
   {
     "id": "garden-of-noor",
@@ -155,7 +181,8 @@ const houseCollection = [
     "description": "A luminous emerald composition where delicate floral geometry meets royal craftsmanship.",
     "hero": "Soft and feminine.",
     "images": [],
-    "onHomepage": false
+    "onHomepage": false,
+    "isHero": false
   },
   {
     "id": "moonlit-cascade",
@@ -166,7 +193,8 @@ const houseCollection = [
     "description": "Three sweeping layers of diamonds designed to evoke softness, radiance, and refined glamour.",
     "hero": "Modern and wearable.",
     "images": [],
-    "onHomepage": false
+    "onHomepage": false,
+    "isHero": false
   },
   {
     "id": "the-emerald-pavilion",
@@ -177,7 +205,8 @@ const houseCollection = [
     "description": "An expansive emerald collar inspired by royal architecture and ceremonial adornment.",
     "hero": "Museum-like presence.",
     "images": [],
-    "onHomepage": false
+    "onHomepage": false,
+    "isHero": false
   },
   {
     "id": "the-sovereign-emerald",
@@ -188,7 +217,8 @@ const houseCollection = [
     "description": "A commanding emerald centrepiece surrounded by diamond radiance and structured elegance.",
     "hero": "Commercial + iconic.",
     "images": [],
-    "onHomepage": false
+    "onHomepage": false,
+    "isHero": false
   },
   {
     "id": "verdant-constellation",
@@ -199,7 +229,8 @@ const houseCollection = [
     "description": "A celestial arrangement of emerald motifs suspended within intricate diamond craftsmanship.",
     "hero": "Complex and highly editorial.",
     "images": [],
-    "onHomepage": false
+    "onHomepage": false,
+    "isHero": false
   }
 ];
 

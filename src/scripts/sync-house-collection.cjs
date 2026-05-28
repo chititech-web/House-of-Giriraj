@@ -29,8 +29,9 @@ function build() {
       hero: data.hero,
       images: extractFilenames(data.images),
       onHomepage: data.onHomepage ?? true,
-      row: data.onHomepage ? (data.row || null) : undefined,
-      homepageOrder: data.onHomepage ? (data.homepageOrder || 1) : undefined,
+      row: data.onHomepage ? (data.row != null ? data.row : null) : undefined,
+      homepageOrder: data.onHomepage ? (data.homepageOrder != null ? data.homepageOrder : 1) : undefined,
+      isHero: data.isHero ?? false,
     };
   });
 

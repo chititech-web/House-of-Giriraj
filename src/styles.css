@@ -1255,10 +1255,7 @@ button {
   overflow: visible;
   opacity: 0.85;
   font-size: clamp(0.8rem, 0.4vw + 0.6rem, 0.95rem);
-}
-
-.row-hero .house-piece-desc br {
-  display: none;
+  white-space: pre-line;
 }
 
 .house-card-link {
