@@ -310,8 +310,31 @@
           const name = document.getElementById("name").value.trim();
           const email = document.getElementById("email").value.trim();
           const phone = document.getElementById("phone").value.trim();
+          const type = document.getElementById("type").value;
+          const date = document.getElementById("date").value;
+          const time = document.getElementById("time").value;
+          const interest = document.getElementById("interest").value;
+          const message = document.getElementById("message").value.trim();
 
           if (!name || !email || !phone) return;
+
+          let msg = `Hello, I'm ${name}.\n\n`;
+          msg += `New Appointment Request:\n`;
+          msg += `Name: ${name}\n`;
+          msg += `Email: ${email}\n`;
+          msg += `Phone: ${phone}\n`;
+          const typeLabels = { atelier: "Atelier Visit (Mumbai)", video: "Video Consultation", home: "Home Visit (Mumbai Metro)" };
+          msg += `Type: ${typeLabels[type] || type}\n`;
+          if (date) msg += `Preferred Date: ${date}\n`;
+          const timeLabels = { morning: "Morning (10AM-1PM)", afternoon: "Afternoon (1PM-4PM)", evening: "Evening (4PM-7PM)" };
+          msg += `Time: ${timeLabels[time] || time}\n`;
+          const interestLabels = { general: "General Inquiry", solitaire: "Solitaire / Engagement Ring", bespoke: "Bespoke Commission", collection: "Collection Viewing" };
+          msg += `Interest: ${interestLabels[interest] || interest}\n`;
+          if (message) msg += `\n${message}\n`;
+          msg += `\nSent from House of Giriraj website.`;
+
+          const encoded = encodeURIComponent(msg);
+          window.open(`https://wa.me/919885055550?text=${encoded}`, "_blank");
 
           form.style.display = "none";
           successMsg.classList.remove("hidden");

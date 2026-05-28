@@ -235,21 +235,21 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-xs tracking-widest uppercase text-outline mb-2">Full Name *</label>
-                  <input type="text" required class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors" placeholder="Your name" />
+                  <input type="text" id="bespoke-name" required class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors" placeholder="Your name" />
                 </div>
                 <div>
                   <label class="block text-xs tracking-widest uppercase text-outline mb-2">Email *</label>
-                  <input type="email" required class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors" placeholder="your@email.com" />
+                  <input type="email" id="bespoke-email" required class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors" placeholder="your@email.com" />
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <div>
                   <label class="block text-xs tracking-widest uppercase text-outline mb-2">Phone *</label>
-                  <input type="tel" required class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors" placeholder="+91 " />
+                  <input type="tel" id="bespoke-phone" required class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors" placeholder="+91 " />
                 </div>
                 <div>
                   <label class="block text-xs tracking-widest uppercase text-outline mb-2">Preferred Contact Time</label>
-                  <select class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors">
+                  <select id="bespoke-time" class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors">
                     <option>Any Time</option>
                     <option>Morning (9AM - 12PM)</option>
                     <option>Afternoon (12PM - 5PM)</option>
@@ -266,7 +266,7 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-xs tracking-widest uppercase text-outline mb-2">Jewelry Type</label>
-                  <select class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors">
+                  <select id="bespoke-type" class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors">
                     <option>Select Type</option>
                     <option>Ring</option>
                     <option>Necklace</option>
@@ -278,7 +278,7 @@
                 </div>
                 <div>
                   <label class="block text-xs tracking-widest uppercase text-outline mb-2">Budget Range</label>
-                  <select class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors">
+                  <select id="bespoke-budget" class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors">
                     <option>Select Budget Range</option>
                     <option>₹1 - 5 Lakhs</option>
                     <option>₹5 - 10 Lakhs</option>
@@ -290,7 +290,7 @@
               </div>
               <div class="mt-6">
                 <label class="block text-xs tracking-widest uppercase text-outline mb-2">Occasion</label>
-                <select class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors">
+                <select id="bespoke-occasion" class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors">
                   <option>Select Occasion</option>
                   <option>Engagement</option>
                   <option>Wedding</option>
@@ -310,7 +310,7 @@
               <h4 class="font-label text-xs tracking-widest uppercase text-outline mb-6">Step 3: Your Story</h4>
               <div>
                 <label class="block text-xs tracking-widest uppercase text-outline mb-2">Describe Your Vision *</label>
-                <textarea rows="4" required placeholder="Tell us about your dream piece - metal preference, stone type, design inspiration..." class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors resize-none"></textarea>
+                <textarea id="bespoke-vision" rows="4" required placeholder="Tell us about your dream piece - metal preference, stone type, design inspiration..." class="w-full bg-surface-container border border-surface-variant px-4 py-3 text-on-surface text-sm focus:border-primary transition-colors resize-none"></textarea>
               </div>
               <div class="mt-6">
                 <label class="block text-xs tracking-widest uppercase text-outline mb-2">Reference Images (Optional)</label>
@@ -489,13 +489,48 @@
 
     document.getElementById("bespoke-form").addEventListener("submit", function(e) {
       e.preventDefault();
-      if (navigator.vibrate) navigator.vibrate([10, 50, 10]);
+      const name = document.getElementById("bespoke-name").value.trim();
+      const email = document.getElementById("bespoke-email").value.trim();
+      const phone = document.getElementById("bespoke-phone").value.trim();
+      const time = document.getElementById("bespoke-time").value;
+      const type = document.getElementById("bespoke-type").value;
+      const budget = document.getElementById("bespoke-budget").value;
+      const occasion = document.getElementById("bespoke-occasion").value;
+      const vision = document.getElementById("bespoke-vision").value.trim();
+
+      if (!name || !email || !phone || !vision) {
+        const btn = this.querySelector("button[type='submit']");
+        btn.innerHTML = 'Please fill all required fields';
+        btn.disabled = true;
+        setTimeout(() => {
+          btn.innerHTML = 'Submit Inquiry';
+          btn.disabled = false;
+        }, 2000);
+        return;
+      }
+
+      let msg = `Hello, I'm ${name}.\n\n`;
+      msg += `New Bespoke Inquiry:\n`;
+      msg += `Name: ${name}\n`;
+      msg += `Email: ${email}\n`;
+      msg += `Phone: ${phone}\n`;
+      if (time !== "Any Time") msg += `Preferred Time: ${time}\n`;
+      if (type !== "Select Type") msg += `Jewelry Type: ${type}\n`;
+      if (budget !== "Select Budget Range") msg += `Budget: ${budget}\n`;
+      if (occasion !== "Select Occasion") msg += `Occasion: ${occasion}\n`;
+      msg += `\n${vision}\n\n`;
+      msg += `Sent from House of Giriraj website.`;
+
+      const encoded = encodeURIComponent(msg);
+      window.open(`https://wa.me/919885055550?text=${encoded}`, "_blank");
+
       const btn = this.querySelector("button[type='submit']");
-      btn.innerHTML = '<span class="material-symbols-outlined mr-2">check_circle</span> Inquiry Submitted';
-      btn.classList.add("bg-green-600");
+      btn.innerHTML = '<span class="material-symbols-outlined mr-2" style="font-size:14px">check_circle</span> Sent to WhatsApp';
+      btn.disabled = true;
       setTimeout(() => {
-        alert("Thank you for your inquiry. Our team will contact you within 4 hours.");
-      }, 500);
+        btn.innerHTML = 'Submit Inquiry';
+        btn.disabled = false;
+      }, 5000);
     });
 
     function toggleAccordion(id) {
