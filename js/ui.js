@@ -194,8 +194,36 @@ function initSmoothScroll() {
   });
 }
 
+/* ===== NAV HIDE ON SCROLL ===== */
+function initNavHide() {
+  const nav = document.querySelector("nav.fixed");
+  if (!nav) return;
+
+  let lastScroll = 0;
+  let ticking = false;
+
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const currentScroll = window.scrollY;
+        if (currentScroll < 80) {
+          nav.classList.remove("nav--hidden");
+        } else if (currentScroll > lastScroll) {
+          nav.classList.add("nav--hidden");
+        } else {
+          nav.classList.remove("nav--hidden");
+        }
+        lastScroll = currentScroll;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+}
+
 /* ===== INIT ===== */
 document.addEventListener("DOMContentLoaded", function () {
+  initNavHide();
   // Load saved theme
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "light") {

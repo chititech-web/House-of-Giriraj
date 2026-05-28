@@ -33,6 +33,8 @@ export default defineConfig({
         heritage: resolve(__dirname, "heritage.html"),
         contact: resolve(__dirname, "contact.html"),
         admin: resolve(__dirname, "admin", "index.html"),
+        signature: resolve(__dirname, "signature-collection.html"),
+        housePiece: resolve(__dirname, "house-piece.html"),
       }
     }
   }

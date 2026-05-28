@@ -1,6 +1,7 @@
 import "./styles.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import houseCollection from "./data/house-collection.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -328,6 +329,256 @@ function initVideoFallbacks() {
   });
 }
 
+function renderHouseCollection(gridSelector = "#house-grid") {
+  const grid = document.querySelector(gridSelector);
+  if (!grid) return;
+
+  const isHomepage = grid.id === "house-grid";
+  const pieces = isHomepage
+    ? houseCollection.filter((p) => p.onHomepage)
+    : houseCollection;
+
+  const grouped = {};
+  if (isHomepage) {
+    pieces.forEach((p) => {
+      const r = p.row || 1;
+      if (!grouped[r]) grouped[r] = [];
+      grouped[r].push(p);
+    });
+  } else {
+    const rows = [[], [], []];
+    pieces.forEach((p, i) => {
+      if (i < 3) rows[0].push(p);
+      else if (i < 6) rows[1].push(p);
+      else rows[2].push(p);
+    });
+    rows.forEach((r, i) => { if (r.length) grouped[i + 1] = r; });
+  }
+
+  Object.keys(grouped).forEach((rowKey) => {
+    const rowPieces = grouped[rowKey];
+    const isFirst = parseInt(rowKey) === 1;
+    const rowClass = rowPieces.length === 3 ? "row-equal" : "row-asymmetric";
+
+    const rowDiv = document.createElement("div");
+    rowDiv.className = `house-row ${rowClass}`;
+
+    rowPieces.forEach((piece) => {
+      const link = document.createElement("div");
+      link.className = "house-card-link";
+      link.tabIndex = 0;
+      link.role = "link";
+      link.setAttribute("aria-label", `View ${piece.title}`);
+      const pieceUrl = `/house-piece.html?id=${piece.id}`;
+      link.addEventListener("click", (e) => {
+        if (e.target.closest("button, [data-slide-prev], [data-slide-next], [data-dot]")) return;
+        window.location.href = pieceUrl;
+      });
+      link.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          if (!e.target.closest("button, [data-slide-prev], [data-slide-next], [data-dot]")) {
+            window.location.href = pieceUrl;
+          }
+        }
+      });
+
+      const card = document.createElement("article");
+      card.className = "house-card";
+
+      const imageArea = document.createElement("div");
+      imageArea.className = "house-card-image";
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "image-wrapper";
+
+      const multi = piece.images && piece.images.length > 1;
+
+      if (multi) {
+        imageArea.setAttribute("data-slideshow", "");
+
+        const slideshow = document.createElement("div");
+        slideshow.className = "house-slideshow";
+
+        piece.images.forEach((img, i) => {
+          const slide = document.createElement("div");
+          slide.className = `slide${i === 0 ? " active" : ""}`;
+          slide.setAttribute("data-slide", "");
+          const imgEl = document.createElement("img");
+          imgEl.src = `/assets/images/collection/${piece.id}/${img}`;
+          imgEl.alt = piece.title;
+          imgEl.width = 1200;
+          imgEl.height = 1600;
+          if (i === 0 && isHomepage) {
+            imgEl.fetchPriority = "high";
+            imgEl.decoding = "sync";
+          } else {
+            imgEl.loading = "lazy";
+            imgEl.decoding = "async";
+          }
+          slide.appendChild(imgEl);
+          slideshow.appendChild(slide);
+        });
+
+        wrapper.appendChild(slideshow);
+
+        const prev = document.createElement("button");
+        prev.className = "slide-btn slide-prev";
+        prev.type = "button";
+        prev.setAttribute("data-slide-prev", "");
+        prev.setAttribute("aria-label", "Previous image");
+        prev.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>';
+        imageArea.appendChild(prev);
+
+        const next = document.createElement("button");
+        next.className = "slide-btn slide-next";
+        next.type = "button";
+        next.setAttribute("data-slide-next", "");
+        next.setAttribute("aria-label", "Next image");
+        next.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>';
+        imageArea.appendChild(next);
+      } else {
+        const imgEl = document.createElement("img");
+        imgEl.src = piece.images && piece.images.length === 1
+          ? `/assets/images/collection/${piece.id}/${piece.images[0]}`
+          : "/assets/images/collection/placeholder.jpg";
+        imgEl.alt = piece.title;
+        imgEl.width = 1200;
+        imgEl.height = 1600;
+        imgEl.loading = "lazy";
+        imgEl.decoding = "async";
+        wrapper.appendChild(imgEl);
+      }
+
+      imageArea.appendChild(wrapper);
+      card.appendChild(imageArea);
+
+      const caption = document.createElement("div");
+      caption.className = "house-card-caption";
+
+      if (multi) {
+        const dots = document.createElement("div");
+        dots.className = "slide-dots";
+        dots.setAttribute("data-slide-dots", "");
+        piece.images.forEach((_, i) => {
+          const dot = document.createElement("button");
+          dot.className = `dot${i === 0 ? " active" : ""}`;
+          dot.type = "button";
+          dot.setAttribute("data-dot", i.toString());
+          dot.setAttribute("aria-label", `View image ${i + 1}`);
+          dots.appendChild(dot);
+        });
+        caption.appendChild(dots);
+      }
+
+      const title = document.createElement("h3");
+      title.className = "house-piece-title";
+      title.textContent = piece.title;
+      caption.appendChild(title);
+
+      const desc = document.createElement("p");
+      desc.className = "house-piece-desc";
+      desc.textContent = piece.description;
+      caption.appendChild(desc);
+
+      const ref = document.createElement("span");
+      ref.className = "house-ref";
+      ref.textContent = piece.ref;
+      caption.appendChild(ref);
+
+      card.appendChild(caption);
+      link.appendChild(card);
+      rowDiv.appendChild(link);
+    });
+
+    grid.appendChild(rowDiv);
+  });
+}
+
+function initHouseSlideshow() {
+  const slideshows = document.querySelectorAll("[data-slideshow]");
+  if (!slideshows.length) return;
+
+  slideshows.forEach((container) => {
+    const slides = container.querySelectorAll("[data-slide]");
+    if (!slides.length) return;
+
+    const card = container.closest(".house-card");
+    const dots = card ? card.querySelectorAll("[data-dot]") : container.querySelectorAll("[data-dot]");
+    const prev = container.querySelector("[data-slide-prev]");
+    const next = container.querySelector("[data-slide-next]");
+
+    let current = 0;
+    let interval;
+    const DELAY = 5000;
+
+    function goTo(index) {
+      slides.forEach((s) => s.classList.remove("active"));
+      dots.forEach((d) => d.classList.remove("active"));
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add("active");
+      if (dots[current]) dots[current].classList.add("active");
+    }
+
+    function startAuto() {
+      stopAuto();
+      interval = setInterval(() => goTo(current + 1), DELAY);
+    }
+
+    function stopAuto() {
+      clearInterval(interval);
+    }
+
+    if (prev) {
+      prev.addEventListener("click", (e) => { e.stopPropagation(); stopAuto(); goTo(current - 1); startAuto(); });
+    }
+    if (next) {
+      next.addEventListener("click", (e) => { e.stopPropagation(); stopAuto(); goTo(current + 1); startAuto(); });
+    }
+    dots.forEach((dot) => {
+      dot.addEventListener("click", (e) => {
+        e.stopPropagation();
+        stopAuto();
+        goTo(parseInt(dot.dataset.dot));
+        startAuto();
+      });
+    });
+
+    if (card) {
+      card.addEventListener("mouseenter", stopAuto);
+      card.addEventListener("mouseleave", startAuto);
+    }
+
+    startAuto();
+  });
+}
+
+function initNavHide() {
+  const nav = document.querySelector(".nav");
+  if (!nav) return;
+
+  let lastScroll = 0;
+  let ticking = false;
+
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const currentScroll = window.scrollY;
+        if (currentScroll < 80) {
+          nav.classList.remove("nav--hidden");
+        } else if (currentScroll > lastScroll) {
+          nav.classList.add("nav--hidden");
+        } else {
+          nav.classList.remove("nav--hidden");
+        }
+        lastScroll = currentScroll;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+}
+
 function init() {
   initTheme();
   initLanguageSelectors();
@@ -335,6 +586,10 @@ function init() {
   initSearch();
   initMotion();
   initVideoFallbacks();
+  initNavHide();
+  renderHouseCollection("#house-grid");
+  renderHouseCollection("#house-grid-full");
+  initHouseSlideshow();
 }
 
 if (document.readyState === "loading") {
