@@ -224,3 +224,28 @@
 - `main` variable name conflicted with page-scoped `main` in product.html gallery
   JS — renamed to `galleryMain`.
 - CSV re-import overwrites CMS data — only use `csv-to-md.cjs` for initial bulk import.
+
+## 2026-05-29
+
+### CTA Label Consolidation Fixes
+
+- **Home page house collection**: Changed from "WhatsApp Consultation" (button with `data-wa-btn`) to
+  `View Full Collection` (`<a>` linking to `/collections.html`).
+- **Product page secondary CTA**: Label changed from "WhatsApp Consultation" to "Enquire on WhatsApp",
+  keeps the `data-wa-btn` WhatsApp funnel trigger.
+
+### Maharani Cascade Necklace — Hero Product
+
+- Added as a **full-width hero row** at the top of The House Collection on the homepage.
+- 3 images at `public/assets/images/collection/celestial-cascade/` (celestial-cascade-1.png, -2.jpg, -3.png).
+- **Data source**: Created `src/data/house-collection-entries/celestial-cascade.md` with YAML frontmatter
+  (multi-line description using `|` literal block, `isHero: true`).
+- **Rendering**: `src/main.js` — extracted `createHouseCard()` from `renderHouseCollection()`;
+  hero piece (`isHero: true`) rendered first as `.row-hero` before the regular grid.
+- **CSS**: Added `.row-hero` (full-width via `grid-template-columns: 1fr`, 3/2 aspect ratio image,
+  larger title, full description with `white-space: pre-line` for paragraph breaks).
+- **Build pipeline fix**: `sync-house-collection.cjs` now includes `isHero` field in output.
+- **Bug fix**: Sync script treated `data.row = 0` and `data.homepageOrder = 0` as falsy,
+  producing `null` and `1` instead. Changed `||` to `!= null` checks.
+- **Count updated**: "Eight curated high jewellery masterpieces" → "Nine" in `index.html`.
+- **Image fix**: Second image changed from `.png` to `.jpg` — updated markdown entry to match.

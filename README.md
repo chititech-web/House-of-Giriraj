@@ -62,7 +62,34 @@ Each product has these fields in the editor:
 
 Images are stored in `public/assets/images/products/`. The path is auto-managed.
 
-### Data Flow
+### The House Collection
+
+The homepage features **The House Collection** — 9 curated high jewellery pieces.
+Data is stored as markdown in `src/data/house-collection-entries/{id}.md` and synced
+via `sync-house-collection.cjs` into `src/data/house-collection.js`.
+
+**Hero product**: A piece with `isHero: true` renders as a full-width row at the top
+(bigger image, full description). Currently: **Maharani Cascade Necklace**.
+
+Data flow:
+```
+markdown edits → src/data/house-collection-entries/{id}.md
+                                       ↓
+                sync-house-collection.cjs  (runs on every npm run build)
+                                       ↓
+                  src/data/house-collection.js
+                                       ↓
+                 src/main.js → renderHouseCollection("#house-grid")
+```
+
+To add a new piece: create a `.md` file in `house-collection-entries/`, add images to
+`public/assets/images/collection/{id}/`, set `onHomepage`, `row`, `homepageOrder`, and
+optionally `isHero: true`.
+
+**Note:** The sync script fully regenerates `house-collection.js` on every build.
+Edit the markdown files, not the JS.
+
+### Data Flow (Products)
 
 ```
 CMS edits → products/{category}/{id}.md  (written by Decap CMS)
@@ -112,6 +139,7 @@ The preserved public routes are:
 - `/bespoke.html`
 - `/heritage.html`
 - `/contact.html`
+- `/house-piece.html?id=<collection-piece-id>`
 
 Homepage product links currently point to:
 
