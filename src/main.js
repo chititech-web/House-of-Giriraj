@@ -328,6 +328,136 @@ function initVideoFallbacks() {
   });
 }
 
+function createHouseCard(piece, isHomepage) {
+  const link = document.createElement("div");
+  link.className = "house-card-link";
+  link.tabIndex = 0;
+  link.role = "link";
+  link.setAttribute("aria-label", `View ${piece.title}`);
+  const pieceUrl = `/house-piece.html?id=${piece.id}`;
+  link.addEventListener("click", (e) => {
+    if (e.target.closest("button, [data-slide-prev], [data-slide-next], [data-dot]")) return;
+    window.location.href = pieceUrl;
+  });
+  link.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (!e.target.closest("button, [data-slide-prev], [data-slide-next], [data-dot]")) {
+        window.location.href = pieceUrl;
+      }
+    }
+  });
+
+  const card = document.createElement("article");
+  card.className = "house-card";
+
+  const imageArea = document.createElement("div");
+  imageArea.className = "house-card-image";
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "image-wrapper";
+
+  const multi = piece.images && piece.images.length > 1;
+
+  if (multi) {
+    imageArea.setAttribute("data-slideshow", "");
+
+    const slideshow = document.createElement("div");
+    slideshow.className = "house-slideshow";
+
+    piece.images.forEach((img, i) => {
+      const slide = document.createElement("div");
+      slide.className = `slide${i === 0 ? " active" : ""}`;
+      slide.setAttribute("data-slide", "");
+      const imgEl = document.createElement("img");
+      imgEl.src = `/assets/images/collection/${piece.id}/${img}`;
+      imgEl.alt = piece.title;
+      imgEl.width = 1200;
+      imgEl.height = 1600;
+      if (i === 0 && isHomepage) {
+        imgEl.fetchPriority = "high";
+        imgEl.decoding = "sync";
+      } else {
+        imgEl.loading = "lazy";
+        imgEl.decoding = "async";
+      }
+      slide.appendChild(imgEl);
+      slideshow.appendChild(slide);
+    });
+
+    wrapper.appendChild(slideshow);
+
+    const prev = document.createElement("button");
+    prev.className = "slide-btn slide-prev";
+    prev.type = "button";
+    prev.setAttribute("data-slide-prev", "");
+    prev.setAttribute("aria-label", "Previous image");
+    prev.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>';
+    imageArea.appendChild(prev);
+
+    const next = document.createElement("button");
+    next.className = "slide-btn slide-next";
+    next.type = "button";
+    next.setAttribute("data-slide-next", "");
+    next.setAttribute("aria-label", "Next image");
+    next.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>';
+    imageArea.appendChild(next);
+  } else {
+    const imgEl = document.createElement("img");
+    imgEl.src = piece.images && piece.images.length === 1
+      ? `/assets/images/collection/${piece.id}/${piece.images[0]}`
+      : "/assets/images/collection/placeholder.jpg";
+    imgEl.alt = piece.title;
+    imgEl.width = 1200;
+    imgEl.height = 1600;
+    imgEl.loading = "lazy";
+    imgEl.decoding = "async";
+    wrapper.appendChild(imgEl);
+  }
+
+  imageArea.appendChild(wrapper);
+  card.appendChild(imageArea);
+
+  const caption = document.createElement("div");
+  caption.className = "house-card-caption";
+
+  if (multi) {
+    const dots = document.createElement("div");
+    dots.className = "slide-dots";
+    dots.setAttribute("data-slide-dots", "");
+    piece.images.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.className = `dot${i === 0 ? " active" : ""}`;
+      dot.type = "button";
+      dot.setAttribute("data-dot", i.toString());
+      dot.setAttribute("aria-label", `View image ${i + 1}`);
+      dots.appendChild(dot);
+    });
+    caption.appendChild(dots);
+  }
+
+  const title = document.createElement("h3");
+  title.className = "house-piece-title";
+  title.textContent = piece.title;
+  caption.appendChild(title);
+
+  const desc = document.createElement("p");
+  desc.className = "house-piece-desc";
+  desc.textContent = piece.description;
+  caption.appendChild(desc);
+
+  if (piece.ref) {
+    const ref = document.createElement("span");
+    ref.className = "house-ref";
+    ref.textContent = piece.ref;
+    caption.appendChild(ref);
+  }
+
+  card.appendChild(caption);
+  link.appendChild(card);
+  return link;
+}
+
 function renderHouseCollection(gridSelector = "#house-grid") {
   const grid = document.querySelector(gridSelector);
   if (!grid) return;
@@ -337,16 +467,26 @@ function renderHouseCollection(gridSelector = "#house-grid") {
     ? houseCollection.filter((p) => p.onHomepage)
     : houseCollection;
 
+  const heroPiece = pieces.find((p) => p.isHero);
+  const regularPieces = heroPiece ? pieces.filter((p) => !p.isHero) : pieces;
+
+  if (heroPiece) {
+    const heroRow = document.createElement("div");
+    heroRow.className = "house-row row-hero";
+    heroRow.appendChild(createHouseCard(heroPiece, isHomepage));
+    grid.appendChild(heroRow);
+  }
+
   const grouped = {};
   if (isHomepage) {
-    pieces.forEach((p) => {
+    regularPieces.forEach((p) => {
       const r = p.row || 1;
       if (!grouped[r]) grouped[r] = [];
       grouped[r].push(p);
     });
   } else {
     const rows = [[], [], []];
-    pieces.forEach((p, i) => {
+    regularPieces.forEach((p, i) => {
       if (i < 3) rows[0].push(p);
       else if (i < 6) rows[1].push(p);
       else rows[2].push(p);
@@ -363,131 +503,7 @@ function renderHouseCollection(gridSelector = "#house-grid") {
     rowDiv.className = `house-row ${rowClass}`;
 
     rowPieces.forEach((piece) => {
-      const link = document.createElement("div");
-      link.className = "house-card-link";
-      link.tabIndex = 0;
-      link.role = "link";
-      link.setAttribute("aria-label", `View ${piece.title}`);
-      const pieceUrl = `/house-piece.html?id=${piece.id}`;
-      link.addEventListener("click", (e) => {
-        if (e.target.closest("button, [data-slide-prev], [data-slide-next], [data-dot]")) return;
-        window.location.href = pieceUrl;
-      });
-      link.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          if (!e.target.closest("button, [data-slide-prev], [data-slide-next], [data-dot]")) {
-            window.location.href = pieceUrl;
-          }
-        }
-      });
-
-      const card = document.createElement("article");
-      card.className = "house-card";
-
-      const imageArea = document.createElement("div");
-      imageArea.className = "house-card-image";
-
-      const wrapper = document.createElement("div");
-      wrapper.className = "image-wrapper";
-
-      const multi = piece.images && piece.images.length > 1;
-
-      if (multi) {
-        imageArea.setAttribute("data-slideshow", "");
-
-        const slideshow = document.createElement("div");
-        slideshow.className = "house-slideshow";
-
-        piece.images.forEach((img, i) => {
-          const slide = document.createElement("div");
-          slide.className = `slide${i === 0 ? " active" : ""}`;
-          slide.setAttribute("data-slide", "");
-          const imgEl = document.createElement("img");
-          imgEl.src = `/assets/images/collection/${piece.id}/${img}`;
-          imgEl.alt = piece.title;
-          imgEl.width = 1200;
-          imgEl.height = 1600;
-          if (i === 0 && isHomepage) {
-            imgEl.fetchPriority = "high";
-            imgEl.decoding = "sync";
-          } else {
-            imgEl.loading = "lazy";
-            imgEl.decoding = "async";
-          }
-          slide.appendChild(imgEl);
-          slideshow.appendChild(slide);
-        });
-
-        wrapper.appendChild(slideshow);
-
-        const prev = document.createElement("button");
-        prev.className = "slide-btn slide-prev";
-        prev.type = "button";
-        prev.setAttribute("data-slide-prev", "");
-        prev.setAttribute("aria-label", "Previous image");
-        prev.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>';
-        imageArea.appendChild(prev);
-
-        const next = document.createElement("button");
-        next.className = "slide-btn slide-next";
-        next.type = "button";
-        next.setAttribute("data-slide-next", "");
-        next.setAttribute("aria-label", "Next image");
-        next.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>';
-        imageArea.appendChild(next);
-      } else {
-        const imgEl = document.createElement("img");
-        imgEl.src = piece.images && piece.images.length === 1
-          ? `/assets/images/collection/${piece.id}/${piece.images[0]}`
-          : "/assets/images/collection/placeholder.jpg";
-        imgEl.alt = piece.title;
-        imgEl.width = 1200;
-        imgEl.height = 1600;
-        imgEl.loading = "lazy";
-        imgEl.decoding = "async";
-        wrapper.appendChild(imgEl);
-      }
-
-      imageArea.appendChild(wrapper);
-      card.appendChild(imageArea);
-
-      const caption = document.createElement("div");
-      caption.className = "house-card-caption";
-
-      if (multi) {
-        const dots = document.createElement("div");
-        dots.className = "slide-dots";
-        dots.setAttribute("data-slide-dots", "");
-        piece.images.forEach((_, i) => {
-          const dot = document.createElement("button");
-          dot.className = `dot${i === 0 ? " active" : ""}`;
-          dot.type = "button";
-          dot.setAttribute("data-dot", i.toString());
-          dot.setAttribute("aria-label", `View image ${i + 1}`);
-          dots.appendChild(dot);
-        });
-        caption.appendChild(dots);
-      }
-
-      const title = document.createElement("h3");
-      title.className = "house-piece-title";
-      title.textContent = piece.title;
-      caption.appendChild(title);
-
-      const desc = document.createElement("p");
-      desc.className = "house-piece-desc";
-      desc.textContent = piece.description;
-      caption.appendChild(desc);
-
-      const ref = document.createElement("span");
-      ref.className = "house-ref";
-      ref.textContent = piece.ref;
-      caption.appendChild(ref);
-
-      card.appendChild(caption);
-      link.appendChild(card);
-      rowDiv.appendChild(link);
+      rowDiv.appendChild(createHouseCard(piece, isHomepage));
     });
 
     grid.appendChild(rowDiv);

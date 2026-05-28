@@ -1235,6 +1235,32 @@ button {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.row-hero {
+  grid-template-columns: 1fr;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.row-hero .house-card-image {
+  aspect-ratio: 3 / 2;
+  max-height: 700px;
+}
+
+.row-hero .house-piece-title {
+  font-size: clamp(1.4rem, 1.2vw + 0.8rem, 2rem);
+}
+
+.row-hero .house-piece-desc {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  opacity: 0.85;
+  font-size: clamp(0.8rem, 0.4vw + 0.6rem, 0.95rem);
+}
+
+.row-hero .house-piece-desc br {
+  display: none;
+}
+
 .house-card-link {
   display: block;
   text-decoration: none;
