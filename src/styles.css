@@ -1508,7 +1508,7 @@ button {
 .bw-to-color {
   filter: grayscale(1);
   transition: filter 0.7s var(--ease-luxury);
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .media-frame:hover .bw-to-color {
