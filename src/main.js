@@ -364,9 +364,27 @@ function createHouseCard(piece, isHomepage) {
     const slideshow = document.createElement("div");
     slideshow.className = "house-slideshow";
 
+    let slideIdx = 0;
+
+    if (piece.trailer) {
+      const slide = document.createElement("div");
+      slide.className = "slide active";
+      slide.setAttribute("data-slide", "");
+      const video = document.createElement("video");
+      video.src = piece.trailer;
+      video.autoplay = true;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.className = "w-full h-full object-cover";
+      slide.appendChild(video);
+      slideshow.appendChild(slide);
+      slideIdx++;
+    }
+
     piece.images.forEach((img, i) => {
       const slide = document.createElement("div");
-      slide.className = `slide${i === 0 ? " active" : ""}`;
+      slide.className = `slide${!piece.trailer && i === 0 ? " active" : ""}`;
       slide.setAttribute("data-slide", "");
       const imgEl = document.createElement("img");
       imgEl.src = `/assets/images/collection/${piece.id}/${img}`;
@@ -382,6 +400,7 @@ function createHouseCard(piece, isHomepage) {
       }
       slide.appendChild(imgEl);
       slideshow.appendChild(slide);
+      slideIdx++;
     });
 
     wrapper.appendChild(slideshow);
@@ -424,14 +443,14 @@ function createHouseCard(piece, isHomepage) {
     const dots = document.createElement("div");
     dots.className = "slide-dots";
     dots.setAttribute("data-slide-dots", "");
-    piece.images.forEach((_, i) => {
+    for (let i = 0; i < slideIdx; i++) {
       const dot = document.createElement("button");
       dot.className = `dot${i === 0 ? " active" : ""}`;
       dot.type = "button";
       dot.setAttribute("data-dot", i.toString());
-      dot.setAttribute("aria-label", `View image ${i + 1}`);
+      dot.setAttribute("aria-label", `View slide ${i + 1}`);
       dots.appendChild(dot);
-    });
+    }
     caption.appendChild(dots);
   }
 

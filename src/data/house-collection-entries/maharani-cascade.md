@@ -17,4 +17,5 @@ onHomepage: true
 row: 0
 homepageOrder: 0
 isHero: true
+trailer: /assets/videos/products/Maharani_Cascade-film.mp4
 ---

@@ -32,6 +32,7 @@ function build() {
       row: data.onHomepage ? (data.row != null ? data.row : null) : undefined,
       homepageOrder: data.onHomepage ? (data.homepageOrder != null ? data.homepageOrder : 1) : undefined,
       isHero: data.isHero ?? false,
+      trailer: data.trailer || null,
     };
   });
 

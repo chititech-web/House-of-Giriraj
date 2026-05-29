@@ -14,7 +14,8 @@ const houseCollection = [
     "onHomepage": true,
     "row": 0,
     "homepageOrder": 0,
-    "isHero": true
+    "isHero": true,
+    "trailer": "/assets/videos/products/Maharani_Cascade-film.mp4"
   },
   {
     "id": "emerald-canopy",
@@ -32,7 +33,8 @@ const houseCollection = [
     "onHomepage": true,
     "row": 1,
     "homepageOrder": 1,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "maharani-veil",
@@ -50,7 +52,8 @@ const houseCollection = [
     "onHomepage": true,
     "row": 1,
     "homepageOrder": 2,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "imperial-cascade",
@@ -68,7 +71,8 @@ const houseCollection = [
     "onHomepage": true,
     "row": 1,
     "homepageOrder": 3,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "dynasty-bloom",
@@ -86,7 +90,8 @@ const houseCollection = [
     "onHomepage": true,
     "row": 2,
     "homepageOrder": 1,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "ruby-aurora",
@@ -104,7 +109,8 @@ const houseCollection = [
     "onHomepage": true,
     "row": 2,
     "homepageOrder": 2,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "celestial-rain",
@@ -122,7 +128,8 @@ const houseCollection = [
     "onHomepage": true,
     "row": 2,
     "homepageOrder": 3,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "royal-lace",
@@ -140,7 +147,8 @@ const houseCollection = [
     "onHomepage": true,
     "row": 3,
     "homepageOrder": 1,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "emerald-reverie",
@@ -158,7 +166,8 @@ const houseCollection = [
     "onHomepage": true,
     "row": 3,
     "homepageOrder": 2,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "emerald-sonata",
@@ -170,7 +179,8 @@ const houseCollection = [
     "hero": "Strong emotional luxury appeal.",
     "images": [],
     "onHomepage": false,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "garden-of-noor",
@@ -182,7 +192,8 @@ const houseCollection = [
     "hero": "Soft and feminine.",
     "images": [],
     "onHomepage": false,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "moonlit-cascade",
@@ -194,7 +205,8 @@ const houseCollection = [
     "hero": "Modern and wearable.",
     "images": [],
     "onHomepage": false,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "the-emerald-pavilion",
@@ -206,7 +218,8 @@ const houseCollection = [
     "hero": "Museum-like presence.",
     "images": [],
     "onHomepage": false,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "the-sovereign-emerald",
@@ -218,7 +231,8 @@ const houseCollection = [
     "hero": "Commercial + iconic.",
     "images": [],
     "onHomepage": false,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   },
   {
     "id": "verdant-constellation",
@@ -230,7 +244,8 @@ const houseCollection = [
     "hero": "Complex and highly editorial.",
     "images": [],
     "onHomepage": false,
-    "isHero": false
+    "isHero": false,
+    "trailer": null
   }
 ];
 
