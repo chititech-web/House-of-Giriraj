@@ -373,9 +373,9 @@ function createHouseCard(piece, isHomepage) {
       video.src = piece.trailer;
       video.autoplay = true;
       video.muted = true;
-      video.loop = true;
+      video.loop = false;
       video.playsInline = true;
-      video.className = "w-full h-full object-cover";
+      video.className = "w-full h-full object-contain";
       slide.appendChild(video);
       slideshow.appendChild(slide);
       slideIdx++;
@@ -551,8 +551,36 @@ function initHouseSlideshow() {
     const next = container.querySelector("[data-slide-next]");
 
     let current = 0;
-    let interval;
+    let autoTimer;
+    let endedHandler;
     const DELAY = 5000;
+
+    function clearAuto() {
+      clearInterval(autoTimer);
+      autoTimer = null;
+      if (endedHandler) {
+        slides.forEach(s => {
+          const v = s.querySelector("video");
+          if (v) v.removeEventListener("ended", endedHandler);
+        });
+        endedHandler = null;
+      }
+    }
+
+    function scheduleAuto() {
+      clearAuto();
+      const slide = slides[current];
+      if (!slide) return;
+      const video = slide.querySelector("video");
+      if (video) {
+        if (video.ended) video.currentTime = 0;
+        video.play();
+        endedHandler = () => goTo(current + 1);
+        video.addEventListener("ended", endedHandler);
+      } else {
+        autoTimer = setInterval(() => goTo(current + 1), DELAY);
+      }
+    }
 
     function goTo(index) {
       slides.forEach((s) => s.classList.remove("active"));
@@ -560,38 +588,29 @@ function initHouseSlideshow() {
       current = (index + slides.length) % slides.length;
       slides[current].classList.add("active");
       if (dots[current]) dots[current].classList.add("active");
+      scheduleAuto();
     }
 
-    function startAuto() {
-      stopAuto();
-      interval = setInterval(() => goTo(current + 1), DELAY);
-    }
-
-    function stopAuto() {
-      clearInterval(interval);
-    }
-
-    container._startAuto = startAuto;
-    container._stopAuto = stopAuto;
+    container._startAuto = scheduleAuto;
+    container._stopAuto = clearAuto;
 
     if (prev) {
-      prev.addEventListener("click", (e) => { e.stopPropagation(); stopAuto(); goTo(current - 1); startAuto(); });
+      prev.addEventListener("click", (e) => { e.stopPropagation(); clearAuto(); goTo(current - 1); });
     }
     if (next) {
-      next.addEventListener("click", (e) => { e.stopPropagation(); stopAuto(); goTo(current + 1); startAuto(); });
+      next.addEventListener("click", (e) => { e.stopPropagation(); clearAuto(); goTo(current + 1); });
     }
     dots.forEach((dot) => {
       dot.addEventListener("click", (e) => {
         e.stopPropagation();
-        stopAuto();
+        clearAuto();
         goTo(parseInt(dot.dataset.dot));
-        startAuto();
       });
     });
 
     if (card) {
-      card.addEventListener("mouseenter", stopAuto);
-      card.addEventListener("mouseleave", startAuto);
+      card.addEventListener("mouseenter", clearAuto);
+      card.addEventListener("mouseleave", scheduleAuto);
     }
   });
 }
