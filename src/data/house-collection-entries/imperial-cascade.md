@@ -10,6 +10,6 @@ images:
   - image: /assets/images/collection/imperial-cascade/imperial-cascade-ch-12316(2).png
   - image: /assets/images/collection/imperial-cascade/imperial-cascade-ch-12316(3).jpg
 onHomepage: true
-row: 1
-homepageOrder: 3
+row: 2
+homepageOrder: 1
 ---

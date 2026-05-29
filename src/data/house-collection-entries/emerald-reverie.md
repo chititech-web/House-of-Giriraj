@@ -10,6 +10,6 @@ images:
   - image: /assets/images/collection/emerald-reverie/emerald-reverie-nk-12536(2).png
   - image: /assets/images/collection/emerald-reverie/emerald-reverie-nk-12536(3).jpg
 onHomepage: true
-row: 3
+row: 4
 homepageOrder: 2
 ---

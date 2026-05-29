@@ -10,6 +10,6 @@ images:
   - image: /assets/images/collection/celestial-rain/celestial-rain-nk-12725 (2).png
   - image: /assets/images/collection/celestial-rain/celestial-rain-nk-12725 (3).jpg
 onHomepage: true
-row: 2
-homepageOrder: 3
+row: 3
+homepageOrder: 2
 ---

@@ -69,8 +69,8 @@ const houseCollection = [
       "imperial-cascade-ch-12316(3).jpg"
     ],
     "onHomepage": true,
-    "row": 1,
-    "homepageOrder": 3,
+    "row": 2,
+    "homepageOrder": 1,
     "isHero": false,
     "trailer": null
   },
@@ -89,7 +89,7 @@ const houseCollection = [
     ],
     "onHomepage": true,
     "row": 2,
-    "homepageOrder": 1,
+    "homepageOrder": 2,
     "isHero": false,
     "trailer": null
   },
@@ -107,8 +107,8 @@ const houseCollection = [
       "ruby-aurora-nk-12479(3).jpg"
     ],
     "onHomepage": true,
-    "row": 2,
-    "homepageOrder": 2,
+    "row": 3,
+    "homepageOrder": 1,
     "isHero": false,
     "trailer": null
   },
@@ -126,8 +126,8 @@ const houseCollection = [
       "celestial-rain-nk-12725 (3).jpg"
     ],
     "onHomepage": true,
-    "row": 2,
-    "homepageOrder": 3,
+    "row": 3,
+    "homepageOrder": 2,
     "isHero": false,
     "trailer": null
   },
@@ -145,7 +145,7 @@ const houseCollection = [
       "royale-lace-ch-12509(3).jpg"
     ],
     "onHomepage": true,
-    "row": 3,
+    "row": 4,
     "homepageOrder": 1,
     "isHero": false,
     "trailer": null
@@ -164,7 +164,7 @@ const houseCollection = [
       "emerald-reverie-nk-12536(3).jpg"
     ],
     "onHomepage": true,
-    "row": 3,
+    "row": 4,
     "homepageOrder": 2,
     "isHero": false,
     "trailer": null

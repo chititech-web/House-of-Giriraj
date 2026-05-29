@@ -10,6 +10,6 @@ images:
   - image: /assets/images/collection/royal-lace/royale-lace-ch-12509(2).png
   - image: /assets/images/collection/royal-lace/royale-lace-ch-12509(3).jpg
 onHomepage: true
-row: 3
+row: 4
 homepageOrder: 1
 ---

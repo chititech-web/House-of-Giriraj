@@ -10,6 +10,6 @@ images:
   - image: /assets/images/collection/ruby-aurora/ruby-aurora-nk-12479(2).png
   - image: /assets/images/collection/ruby-aurora/ruby-aurora-nk-12479(3).jpg
 onHomepage: true
-row: 2
-homepageOrder: 2
+row: 3
+homepageOrder: 1
 ---

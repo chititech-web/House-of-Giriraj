@@ -11,5 +11,5 @@ images:
   - image: /assets/images/collection/dynasty-bloom/dynasty-bloom-h-12695 (3).png
 onHomepage: true
 row: 2
-homepageOrder: 1
+homepageOrder: 2
 ---
