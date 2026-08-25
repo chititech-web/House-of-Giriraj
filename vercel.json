@@ -8,7 +8,55 @@
     { "source": "/signature-collection", "destination": "/crown-collection.html", "permanent": true },
     { "source": "/collections", "destination": "/crown-collection.html", "permanent": true },
     { "source": "/signature-collection.html", "destination": "/crown-collection.html", "permanent": true },
-    { "source": "/collections.html", "destination": "/crown-collection.html", "permanent": true }
+    { "source": "/collections.html", "destination": "/crown-collection.html", "permanent": true },
+    {
+      "source": "/house-piece.html",
+      "has": [{ "type": "query", "key": "id", "value": "maharani-cascade" }],
+      "destination": "/house-of-diamonds/maharani-cascade/",
+      "permanent": true
+    },
+    {
+      "source": "/house-piece.html",
+      "has": [{ "type": "query", "key": "id", "value": "emerald-reverie" }],
+      "destination": "/emerald-court/emerald-reverie/",
+      "permanent": true
+    },
+    {
+      "source": "/house-piece.html",
+      "has": [{ "type": "query", "key": "id", "value": "imperial-dominion" }],
+      "destination": "/crown-collection/imperial-dominion/",
+      "permanent": true
+    },
+    {
+      "source": "/house-piece.html",
+      "has": [{ "type": "query", "key": "id", "value": "royal-edict" }],
+      "destination": "/crown-collection/royal-edict/",
+      "permanent": true
+    },
+    {
+      "source": "/house-piece.html",
+      "has": [{ "type": "query", "key": "id", "value": "regalia-canopy" }],
+      "destination": "/crown-collection/regalia-canopy/",
+      "permanent": true
+    },
+    {
+      "source": "/house-piece.html",
+      "has": [{ "type": "query", "key": "id", "value": "ruby-aurora" }],
+      "destination": "/ruby-salon/ruby-aurora/",
+      "permanent": true
+    },
+    {
+      "source": "/house-piece.html",
+      "has": [{ "type": "query", "key": "id", "value": "ceremonial-bloom" }],
+      "destination": "/heritage-atelier/ceremonial-bloom/",
+      "permanent": true
+    },
+    {
+      "source": "/house-piece.html",
+      "has": [{ "type": "query", "key": "id", "value": "morning-dew" }],
+      "destination": "/jasmine-atelier/morning-dew/",
+      "permanent": true
+    }
   ],
   "functions": {
     "api/oauth.js": {

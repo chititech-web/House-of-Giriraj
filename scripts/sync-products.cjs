@@ -158,7 +158,24 @@ for (const p of products) {
   urls.push({ url: `/product.html?id=${p.id}`, priority: "0.8", changefreq: "weekly" });
 }
 
-// Add house-collection entries (39 high jewellery pieces)
+// Canonical Hero Product Routes
+const HERO_CANONICAL_ROUTES = [
+  { id: "maharani-cascade", url: "/house-of-diamonds/maharani-cascade/", priority: "0.85" },
+  { id: "emerald-reverie", url: "/emerald-court/emerald-reverie/", priority: "0.85" },
+  { id: "imperial-dominion", url: "/crown-collection/imperial-dominion/", priority: "0.85" },
+  { id: "royal-edict", url: "/crown-collection/royal-edict/", priority: "0.85" },
+  { id: "regalia-canopy", url: "/crown-collection/regalia-canopy/", priority: "0.85" },
+  { id: "ruby-aurora", url: "/ruby-salon/ruby-aurora/", priority: "0.85" },
+  { id: "ceremonial-bloom", url: "/heritage-atelier/ceremonial-bloom/", priority: "0.85" },
+  { id: "morning-dew", url: "/jasmine-atelier/morning-dew/", priority: "0.85" }
+];
+
+const migratedHeroIds = new Set(HERO_CANONICAL_ROUTES.map(h => h.id));
+HERO_CANONICAL_ROUTES.forEach(h => {
+  urls.push({ url: h.url, priority: h.priority, changefreq: "weekly" });
+});
+
+// Add remaining non-migrated house-collection entries
 const HOUSE_COLLECTION_PATH = path.join(__dirname, "..", "src", "data", "house-collection.js");
 if (fs.existsSync(HOUSE_COLLECTION_PATH)) {
   const hcContent = fs.readFileSync(HOUSE_COLLECTION_PATH, "utf-8");
@@ -166,8 +183,9 @@ if (fs.existsSync(HOUSE_COLLECTION_PATH)) {
   if (idMatches) {
     for (const match of idMatches) {
       const id = match.match(/"id":\s*"([^"]+)"/)[1];
-      urls.push({ url: `/product.html?id=${id}`, priority: "0.8", changefreq: "weekly" });
-      urls.push({ url: `/house-piece.html?id=${id}`, priority: "0.7", changefreq: "weekly" });
+      if (!migratedHeroIds.has(id)) {
+        urls.push({ url: `/house-piece.html?id=${id}`, priority: "0.7", changefreq: "weekly" });
+      }
     }
   }
 }

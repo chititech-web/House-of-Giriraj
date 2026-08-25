@@ -1,0 +1,58 @@
+[
+  {
+    "productId": "maharani-cascade",
+    "legacyUrl": "/house-piece.html?id=maharani-cascade",
+    "canonicalUrl": "https://www.houseofgiriraj.com/house-of-diamonds/maharani-cascade/",
+    "routePath": "/house-of-diamonds/maharani-cascade/",
+    "status": "301_ACTIVE"
+  },
+  {
+    "productId": "emerald-reverie",
+    "legacyUrl": "/house-piece.html?id=emerald-reverie",
+    "canonicalUrl": "https://www.houseofgiriraj.com/emerald-court/emerald-reverie/",
+    "routePath": "/emerald-court/emerald-reverie/",
+    "status": "301_ACTIVE"
+  },
+  {
+    "productId": "imperial-dominion",
+    "legacyUrl": "/house-piece.html?id=imperial-dominion",
+    "canonicalUrl": "https://www.houseofgiriraj.com/crown-collection/imperial-dominion/",
+    "routePath": "/crown-collection/imperial-dominion/",
+    "status": "301_ACTIVE"
+  },
+  {
+    "productId": "royal-edict",
+    "legacyUrl": "/house-piece.html?id=royal-edict",
+    "canonicalUrl": "https://www.houseofgiriraj.com/crown-collection/royal-edict/",
+    "routePath": "/crown-collection/royal-edict/",
+    "status": "301_ACTIVE"
+  },
+  {
+    "productId": "regalia-canopy",
+    "legacyUrl": "/house-piece.html?id=regalia-canopy",
+    "canonicalUrl": "https://www.houseofgiriraj.com/crown-collection/regalia-canopy/",
+    "routePath": "/crown-collection/regalia-canopy/",
+    "status": "301_ACTIVE"
+  },
+  {
+    "productId": "ruby-aurora",
+    "legacyUrl": "/house-piece.html?id=ruby-aurora",
+    "canonicalUrl": "https://www.houseofgiriraj.com/ruby-salon/ruby-aurora/",
+    "routePath": "/ruby-salon/ruby-aurora/",
+    "status": "301_ACTIVE"
+  },
+  {
+    "productId": "ceremonial-bloom",
+    "legacyUrl": "/house-piece.html?id=ceremonial-bloom",
+    "canonicalUrl": "https://www.houseofgiriraj.com/heritage-atelier/ceremonial-bloom/",
+    "routePath": "/heritage-atelier/ceremonial-bloom/",
+    "status": "301_ACTIVE"
+  },
+  {
+    "productId": "morning-dew",
+    "legacyUrl": "/house-piece.html?id=morning-dew",
+    "canonicalUrl": "https://www.houseofgiriraj.com/jasmine-atelier/morning-dew/",
+    "routePath": "/jasmine-atelier/morning-dew/",
+    "status": "301_ACTIVE"
+  }
+]

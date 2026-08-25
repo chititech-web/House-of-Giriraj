@@ -84,11 +84,21 @@ function initFormTracking() {
 }
 
 /* ---- Init on page load ---- */
-document.addEventListener("DOMContentLoaded", () => {
-  trackPageView();
-
   // Track product views
-  if (window.location.pathname.includes("product.html")) {
+  const body = document.body;
+  if (body.dataset.productId) {
+    if (typeof gtag !== "undefined") {
+      gtag("event", "view_item", {
+        currency: "INR",
+        items: [{
+          item_id: body.dataset.productId,
+          item_name: body.dataset.productName || document.title,
+          item_category: body.dataset.collection || "High Jewellery",
+          item_brand: "House of Giriraj"
+        }]
+      });
+    }
+  } else if (window.location.pathname.includes("product.html")) {
     const params = new URLSearchParams(window.location.search);
     const productId = params.get("id");
     if (productId) trackProductView(productId);

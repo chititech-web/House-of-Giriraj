@@ -40,6 +40,15 @@ export default defineConfig({
         contact: resolve(__dirname, "contact.html"),
         admin: resolve(__dirname, "admin", "index.html"),
         housePiece: resolve(__dirname, "house-piece.html"),
+        // 8 Hero Masterpiece Static Entry Points
+        hero_maharaniCascade: resolve(__dirname, "house-of-diamonds/maharani-cascade/index.html"),
+        hero_emeraldReverie: resolve(__dirname, "emerald-court/emerald-reverie/index.html"),
+        hero_imperialDominion: resolve(__dirname, "crown-collection/imperial-dominion/index.html"),
+        hero_royalEdict: resolve(__dirname, "crown-collection/royal-edict/index.html"),
+        hero_regaliaCanopy: resolve(__dirname, "crown-collection/regalia-canopy/index.html"),
+        hero_rubyAurora: resolve(__dirname, "ruby-salon/ruby-aurora/index.html"),
+        hero_ceremonialBloom: resolve(__dirname, "heritage-atelier/ceremonial-bloom/index.html"),
+        hero_morningDew: resolve(__dirname, "jasmine-atelier/morning-dew/index.html"),
       }
     }
   }

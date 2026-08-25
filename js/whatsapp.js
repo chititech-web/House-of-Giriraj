@@ -22,13 +22,20 @@ const WhatsAppFunnel = {
 
   detectContext() {
     const path = window.location.pathname;
-    if (path.includes("product.html")) {
+    const body = document.body;
+    if (body.dataset.productId) {
+      this.sourcePage = "house-piece";
+      this.productId = body.dataset.productId;
+      this.productName = body.dataset.productName || (document.querySelector("h1") ? document.querySelector("h1").textContent.trim() : null);
+      this.category = body.dataset.collection;
+      this.ref = body.dataset.ref;
+    } else if (path.includes("product.html")) {
       this.sourcePage = "product";
       const h1 = document.querySelector("h1");
       if (h1) this.productName = h1.textContent.trim();
       const params = new URLSearchParams(window.location.search);
       this.productId = params.get("id");
-    } else if (path.includes("collections.html")) {
+    } else if (path.includes("collections.html") || path.includes("-collection.html") || path.includes("-court.html") || path.includes("-diamonds.html") || path.includes("-salon.html") || path.includes("-atelier.html")) {
       this.sourcePage = "collections";
       const activeFilter = document.querySelector(".filter-btn.active");
       if (activeFilter && activeFilter.dataset.filter !== "all") {
@@ -209,7 +216,9 @@ const WhatsAppFunnel = {
     const name = this.userName || "Guest";
     let message = "";
 
-    if (this.sourcePage === "product" && this.productName) {
+    if (this.sourcePage === "house-piece" && this.productName) {
+      message = `Hello House of Giriraj, I'm ${name}.\n\nI'm inquiring about the "${this.productName}"${this.ref ? " (Ref: " + this.ref + ")" : ""} from the ${this.category || "House"} collection.\n\nCould you please share private viewing availability and further details?\n\nThank you.`;
+    } else if (this.sourcePage === "product" && this.productName) {
       const pd = window.__waProductData;
       if (pd && pd.description) {
         message = `Hello, I'm ${name}.\n\nI'm interested in "${this.productName}" — ${pd.description}\n\n`;
